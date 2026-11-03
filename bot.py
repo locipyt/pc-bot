@@ -18,7 +18,7 @@ telebot.apihelper.proxy = {'https': proxy_url}
 # ----------------------------------
 
 # --- НАСТРОЙКИ БОТА ---
-TOKEN = "ТВОЙ_ТОКЕН_БОТА" # ВСТАВЬ СЮДА ТОКЕН ОТ BOTFATHER
+TOKEN = "9263108544:AAGo7K3U6DLLdbQkaTFywaIoCVfpTszM96Y" # ВСТАВЬ СЮДА ТОКЕН ОТ BOTFATHER
 bot = telebot.TeleBot(TOKEN)
 
 # --- ФУНКЦИЯ АВТОЗАГРУЗКИ ---
